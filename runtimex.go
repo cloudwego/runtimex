@@ -15,7 +15,6 @@
 package runtimex
 
 import (
-	"errors"
 	"fmt"
 	"runtime"
 	"unsafe"
@@ -28,7 +27,7 @@ var (
 	gType    reflect2.StructType
 	gidField reflect2.StructField
 
-	ErrNotSupported = errors.New(fmt.Sprintf("%s is not supported", runtime.Version()))
+	ErrNotSupported = fmt.Errorf("%s is not supported", runtime.Version())
 )
 
 func init() {
