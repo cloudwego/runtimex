@@ -1,3 +1,5 @@
+//go:build arm64 || amd64
+
 // Copyright 2024 CloudWeGo Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
