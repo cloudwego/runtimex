@@ -1,5 +1,3 @@
-//go:build !(arm64 || amd64 || riscv64)
-
 // Copyright 2024 CloudWeGo Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,19 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package runtimex
+#include "go_asm.h"
+#include "textflag.h"
 
-import (
-	"fmt"
-	"runtime"
-)
-
-var ErrUnimplemented = fmt.Errorf("runtimex: unimplemented in this platform[%s]", runtime.GOARCH)
-
-func GID() (int, error) {
-	return 0, ErrUnimplemented
-}
-
-func PID() (int, error) {
-	return 0, ErrUnimplemented
-}
+TEXT ·getg(SB), NOSPLIT, $0-8
+    MOV     g, X10
+    MOV     X10, ret+0(FP)
+    RET
