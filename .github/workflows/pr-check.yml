@@ -4,9 +4,9 @@ on: [ pull_request ]
 
 jobs:
   compliant:
-    runs-on: [ self-hosted, X64 ]
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Check License Header
         uses: apache/skywalking-eyes/header@v0.4.0
         env:
@@ -15,14 +15,14 @@ jobs:
         uses: crate-ci/typos@master
 
   staticcheck:
-    runs-on: [ self-hosted, X64 ]
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v6
         with:
-          go-version: "1.20"
-      - uses: actions/cache@v3
+          go-version: stable
+      - uses: actions/cache@v5
         with:
           path: ~/go/pkg/mod
           key: reviewdog-${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
@@ -41,15 +41,16 @@ jobs:
           staticcheck_flags: -checks=inherit,-SA1029
 
   lint:
-    runs-on: [ self-hosted, X64 ]
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v6
         with:
-          go-version: "1.20"
+          go-version: stable
       - name: Golangci Lint
         # https://golangci-lint.run/
-        uses: golangci/golangci-lint-action@v3
+        uses: golangci/golangci-lint-action@v9
         with:
           version: latest
+          only-new-issues: true
