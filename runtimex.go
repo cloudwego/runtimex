@@ -1,4 +1,4 @@
-//go:build arm64 || amd64
+//go:build arm64 || amd64 || riscv64
 
 // Copyright 2024 CloudWeGo Authors
 //
